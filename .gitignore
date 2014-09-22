@@ -1,0 +1,9 @@
+.DS_Store
+*.pyc
+*.pid
+*.egg-info
+venv
+output
+cache
+build
+dist

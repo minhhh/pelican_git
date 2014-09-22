@@ -1,0 +1,6 @@
+pelican==3.4.0
+Markdown
+pytest
+requests>=2.2.0
+mock>=1.0.1
+beautifulsoup
