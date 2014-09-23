@@ -6,3 +6,6 @@ __license__ = 'MIT'
 __copyright__ = 'Copyright 2014'
 
 from pelican_git.plugin import register
+
+import jinja2 as jinja2_
+jinja2 = jinja2_.Environment( loader=jinja2_.FileSystemLoader( 'templates' ) )

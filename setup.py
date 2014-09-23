@@ -24,6 +24,7 @@ packages = [
 ]
 
 requires = [
+    "setuptools",
     'requests>=2.2.0',
     'beautifulsoup',
 ]
@@ -41,14 +42,15 @@ setup(
     author_email='minhhh@minhhuyha.info',
     url='https://github.com/minhhh/pelican-git',
     packages=packages,
-    package_data={'': ['LICENSE', ]},
+    package_data={'': ['LICENSE', 'pelican_git/templates', ]},
     package_dir={'pelican_git': 'pelican_git'},
     include_package_data=True,
     install_requires=requires,
     tests_require=tests_require,
     license='MIT',
+    zip_safe=False,
     classifiers=(
-        'Development Status :: 4 - Beta',
+        "Development Status :: 5 - Production/Stable",
         'Environment :: Console',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
