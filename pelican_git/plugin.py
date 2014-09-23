@@ -1,4 +1,6 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 """
 Git embedding plugin for Pelican
 =================================
@@ -6,12 +8,14 @@ Git embedding plugin for Pelican
 This plugin allows you to embbed `git` file into your posts.
 
 """
+
 from __future__ import unicode_literals
-import sys, os, re, logging, hashlib
+import os, re, logging, hashlib, codecs, copy
 from bs4 import BeautifulSoup
 import collections
 import jinja2
-g_jinja2 = jinja2.Environment( loader=jinja2.PackageLoader( 'pelican_git', 'templates' ) )
+import requests
+g_jinja2 = jinja2.Environment(loader=jinja2.PackageLoader('pelican_git', 'templates'))
 
 logger = logging.getLogger(__name__)
 git_regex = re.compile(r'(\[git:repo\=([^,]+)(:?,file\=([^,]+))(:?,branch\=([^,]+))?(:?,hash\=([^,]+))?\])')
@@ -26,6 +30,7 @@ GIT_TEMPLATE = 'git.jinja.html'
 def git_url(repo, filename, branch="master", hash=None):
     url = "https://github.com/{}/blob/{}{}/{}".format(repo, "" if hash else branch, "" if not hash else hash, filename)
     return url
+
 
 def cache_filename(base, repo, filename, branch="master", hash=None):
     h = hashlib.md5()
@@ -42,21 +47,18 @@ def get_cache(base, repo, filename, branch="master", hash=None):
     cache_file = cache_filename(base, repo, filename, branch="master", hash=None)
     if not os.path.exists(cache_file):
         return None
-    with open(cache_file, 'rb') as f:
+    with codecs.open(cache_file, 'rb') as f:
         return f.read().decode('utf-8')
 
 
 def set_cache(base, repo, filename, branch="master", hash=None, body=""):
-    with open(cache_filename(base, repo, filename, branch, hash), 'wb') as f:
+    with codecs.open(cache_filename(base, repo, filename, branch, hash), 'wb') as f:
         f.write(body.encode('utf-8'))
 
 
 def fetch_git(repo, filename, branch="master", hash=None):
     """Fetch a gist and return the contents as a string."""
-    import requests
-
     url = git_url(repo, filename, branch, hash)
-    print url
     response = requests.get(url)
 
     if response.status_code != 200:
@@ -74,16 +76,21 @@ def setup_git(pelican):
     pelican.settings.setdefault('GIT_CACHE_LOCATION',
                                 '/tmp/git-cache')
 
-    # Make sure the gist cache directory exists
+    # Make sure the cache directory exists
     cache_base = pelican.settings.get('GIT_CACHE_LOCATION')
     if not os.path.exists(cache_base):
         os.makedirs(cache_base)
 
 
+def get_body(res):
+    soup = BeautifulSoup(res)
+    body = soup.find('div', 'file')
+    del body.contents[1]
+    return body.prettify()
+
+
 def replace_git_url(generator):
     """Replace gist tags in the article content."""
-    # from jinja2 import Template
-    # template = Template(gist_template)
     template = g_jinja2.get_template(GIT_TEMPLATE)
 
     should_cache = generator.context.get('GIT_CACHE_ENABLED')
@@ -117,18 +124,25 @@ def replace_git_url(generator):
 
                 if should_cache:
                     logger.info('[git]: Saving git to cache...')
-                    soup = BeautifulSoup(response)
-                    body = soup.find('div', 'file')
-                    params['body'] = body
-                    set_cache(cache_location, **params)
+                    body = get_body(response)
+                    cache_params = copy.copy(params)
+                    cache_params['body'] = body
+                    set_cache(cache_location, **cache_params)
             else:
                 logger.info('[git]: Found git in cache.')
 
             # Create a context to render with
             context = generator.context.copy()
-            context.update({ 'code': body, 'footer': 'full', 'base': 'https://github.com/minhhh/pelican-git', 'filename': filename, 'url': git_url(**params)})
+            context.update({
+                'code': body,
+                'footer': 'full',
+                'base': 'https://github.com/minhhh/pelican-git',
+                'filename': filename,
+                'url': git_url(**params)
+            })
             replacement = template.render(context)
             article._content = article._content.replace(match[0], replacement)
+
 
 def register():
     """Plugin registration."""

@@ -1,7 +1,7 @@
-Pelican Git Tag
-================
+Pelican Git
+===========
 
-Pelican Git Tag is a library that makes it easy to embed GitHub file in your Pelican_ blogs.
+Pelican Git is a library that makes it easy to embed GitHub file in your Pelican_ blogs using simple syntax.
 
 Installation
 ------------

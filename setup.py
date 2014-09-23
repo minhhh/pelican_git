@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
-import sys
+import os, sys, codecs
 
 try:
     from setuptools import setup
@@ -16,7 +15,7 @@ if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist bdist_wheel upload')
     sys.exit()
 
-with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as f:
+with codecs.open(os.path.join(os.path.dirname(__file__), 'README.rst')) as f:
     readme = f.read()
 
 packages = [
@@ -35,13 +34,13 @@ tests_require = [
 ]
 
 setup(
-    name='pelican-git',
+    name=pelican_git.__title__,
     version=pelican_git.__version__,
-    description='Easily embed GitHub Git file in your Pelican articles.',
+    description=pelican_git.__desc__,
     long_description=readme,
-    author='Ha.Minh',
-    author_email='minhhh@minhhuyha.info',
-    url='https://github.com/minhhh/pelican-git',
+    author=pelican_git.__author__,
+    author_email=pelican_git.__email__,
+    url=pelican_git.__url__,
     packages=packages,
     package_data={'': ['LICENSE', ],
                     'pelican_git': ['templates/*.jinja.html']},
@@ -49,7 +48,7 @@ setup(
     include_package_data=True,
     install_requires=requires,
     tests_require=tests_require,
-    license='MIT',
+    license=pelican_git.__license__,
     zip_safe=False,
     classifiers=(
         "Development Status :: 5 - Production/Stable",
