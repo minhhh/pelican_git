@@ -26,7 +26,7 @@ packages = [
 requires = [
     "setuptools",
     'requests>=2.2.0',
-    'beautifulsoup',
+    'beautifulsoup4',
     'jinja2',
 ]
 

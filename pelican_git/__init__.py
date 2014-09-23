@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __title__ = 'pelican-git'
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 __author__ = 'Ha Minh'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2014'

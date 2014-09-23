@@ -3,5 +3,6 @@ Markdown
 pytest
 requests>=2.2.0
 mock>=1.0.1
-beautifulsoup
+beautifulsoup4
 jinja2
+wheel
