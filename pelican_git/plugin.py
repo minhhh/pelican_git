@@ -10,6 +10,8 @@ from __future__ import unicode_literals
 import sys, os, re, logging, hashlib
 from bs4 import BeautifulSoup
 import collections
+import jinja2
+g_jinja2 = jinja2.Environment( loader=jinja2.PackageLoader( 'pelican_git', 'templates' ) )
 
 logger = logging.getLogger(__name__)
 git_regex = re.compile(r'(\[git:repo\=([^,]+)(:?,file\=([^,]+))(:?,branch\=([^,]+))?(:?,hash\=([^,]+))?\])')
@@ -17,6 +19,8 @@ git_regex = re.compile(r'(\[git:repo\=([^,]+)(:?,file\=([^,]+))(:?,branch\=([^,]
 gist_template = """<div class="gist">
     {{code}}
 </div>"""
+
+GIT_TEMPLATE = 'git.jinja.html'
 
 
 def git_url(repo, filename, branch="master", hash=None):
@@ -78,8 +82,9 @@ def setup_git(pelican):
 
 def replace_git_url(generator):
     """Replace gist tags in the article content."""
-    from jinja2 import Template
-    template = Template(gist_template)
+    # from jinja2 import Template
+    # template = Template(gist_template)
+    template = g_jinja2.get_template(GIT_TEMPLATE)
 
     should_cache = generator.context.get('GIT_CACHE_ENABLED')
     cache_location = generator.context.get('GIT_CACHE_LOCATION')
@@ -121,7 +126,7 @@ def replace_git_url(generator):
 
             # Create a context to render with
             context = generator.context.copy()
-            context.update({ 'code': body })
+            context.update({ 'code': body, 'footer': 'full', 'base': 'https://github.com/minhhh/pelican-git', 'filename': filename, 'url': git_url(**params)})
             replacement = template.render(context)
             article._content = article._content.replace(match[0], replacement)
 

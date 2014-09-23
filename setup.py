@@ -27,6 +27,7 @@ requires = [
     "setuptools",
     'requests>=2.2.0',
     'beautifulsoup',
+    'jinja2',
 ]
 
 tests_require = [
@@ -42,7 +43,8 @@ setup(
     author_email='minhhh@minhhuyha.info',
     url='https://github.com/minhhh/pelican-git',
     packages=packages,
-    package_data={'': ['LICENSE', 'pelican_git/templates', ]},
+    package_data={'': ['LICENSE', ],
+                    'pelican_git': ['templates/*.jinja.html']},
     package_dir={'pelican_git': 'pelican_git'},
     include_package_data=True,
     install_requires=requires,
