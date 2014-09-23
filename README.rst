@@ -36,7 +36,7 @@ In your articles, just add lines to your posts that look like:
 Settings
 --------
 
-``GIT_CACHE_ENABLED`` - Specifies whether to cache the gist on disk or not. Default is ``True``. (Optional)
+``GIT_CACHE_ENABLED`` - Specifies whether to cache the git files on disk or not. Default is ``True``. (Optional)
 
 Testing
 ---------
