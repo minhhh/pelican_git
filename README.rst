@@ -1,7 +1,7 @@
 Pelican Git
 ===========
 
-Pelican Git is a library that makes it easy to embed GitHub file in your Pelican_ blogs using simple syntax.
+Pelican Git is a library that makes it easy to embed GitHub files in your Pelican_ blogs using simple syntax.
 
 Installation
 ------------
@@ -32,6 +32,8 @@ In your articles, just add lines to your posts that look like:
     [git:repo=yourname/yourrepo,file=somefile,branch=master,hash=xxxxxxx]
 
 `branch` and `hash` are optional. If you don't specify `branch`, it will be `master`. If you specify `hash` it will overwrite the `branch` setting.
+
+The generated code will embed `css` and `html` content directly into a `div` and replace the original tag. This is faster and cleaner than using `javascript` to rewrite the page content like what gist_it_ does.
 
 Settings
 --------
@@ -69,4 +71,5 @@ Uses the `MIT`_ license.
 .. _Pelican: http://blog.getpelican.com/
 .. _MIT: http://opensource.org/licenses/MIT
 .. _pelican_gist: https://github.com/streeter/pelican-gist
+.. _gist_it: https://github.com/minhhh/gist-it
 .. _Ha.Minh: http://minhhh.github.io
