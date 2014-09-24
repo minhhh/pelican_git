@@ -72,7 +72,7 @@ def fetch_git(repo, filename, branch="master", hash=None):
 
 def setup_git(pelican):
     """Setup the default settings."""
-    pelican.settings.setdefault('GIT_CACHE_ENABLED', True)
+    pelican.settings.setdefault('GIT_CACHE_ENABLED', False)
     pelican.settings.setdefault('GIT_CACHE_LOCATION',
                                 '/tmp/git-cache')
 

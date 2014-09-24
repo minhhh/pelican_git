@@ -38,7 +38,7 @@ The generated code will embed `css` and `html` content directly into a `div` and
 Settings
 --------
 
-``GIT_CACHE_ENABLED`` - Specifies whether to cache the git files on disk or not. Default is ``True``. (Optional)
+``GIT_CACHE_ENABLED`` - Specifies whether to cache the git files on disk or not. Default is ``False``. (Optional)
 
 Testing
 ---------
