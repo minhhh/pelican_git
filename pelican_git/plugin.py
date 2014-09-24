@@ -120,10 +120,10 @@ def replace_git_url(generator):
             if not body:
                 logger.info('[git]: Git did not exist in cache, fetching...')
                 response = fetch_git(**params)
+                body = get_body(response)
 
                 if should_cache:
                     logger.info('[git]: Saving git to cache...')
-                    body = get_body(response)
                     cache_params = copy.copy(params)
                     cache_params['body'] = body
                     set_cache(cache_location, **cache_params)
