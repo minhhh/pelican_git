@@ -114,8 +114,7 @@ def replace_git_url(generator):
             logger.info('[git]: Found repo {}, filename {}, branch {} and hash {}'.format(repo, filename, branch, hash))
             logger.info('[git]: {}'.format(params))
 
-            if should_cache:
-                body = get_cache(cache_location, **params)
+            body = None if not should_cache else get_cache(cache_location, **params)
 
             # Fetch the git
             if not body:
