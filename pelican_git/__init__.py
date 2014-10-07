@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __title__ = 'pelican-git'
-__version__ = '0.1.7'
+__version__ = '0.1.8'
 __author__ = 'Ha.Minh'
 __email__ = 'minhhh@minhhuyha.info'
 __url__ = 'https://github.com/minhhh/pelican_git'
