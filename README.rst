@@ -73,3 +73,9 @@ Uses the `MIT`_ license.
 .. _pelican_gist: https://github.com/streeter/pelican-gist
 .. _gist_it: https://github.com/minhhh/gist-it
 .. _Ha.Minh: http://minhhh.github.io
+
+
+.. image:: https://d2weczhvl823v0.cloudfront.net/minhhh/pelican_git/trend.png
+   :alt: Bitdeli badge
+   :target: https://bitdeli.com/free
+
