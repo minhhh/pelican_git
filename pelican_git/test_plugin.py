@@ -33,11 +33,11 @@ def test_git_url():
     hash = TEST_HASH
 
     # Test without a branch or hash
-    url = gitplugin.git_url(**{'repo': TEST_REPO, 'filename': filename})
+    url = gitplugin.git_url(**{'repo': repo, 'filename': filename})
     assert filename in url
 
     # Test with a branch
-    url = gitplugin.git_url(**{'repo': TEST_REPO, 'filename': filename, 'branch': 'develop'})
+    url = gitplugin.git_url(**{'repo': repo, 'filename': filename, 'branch': 'develop'})
     assert url.endswith(filename)
     assert 'develop' in url
 
@@ -205,8 +205,7 @@ def test_fetch_git_sample():
     filename = TEST_FILENAME
 
     response = gitplugin.fetch_git(repo, filename)
-    soup = BeautifulSoup(response)
+    soup = BeautifulSoup(response, "html.parser")
     res = soup.find('div', 'file')
     assert res is not None
-
 

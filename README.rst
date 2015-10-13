@@ -59,6 +59,7 @@ Inspired by pelican_gist_
 Changelog
 ---------
 
+- 0.1.8 - Fix link to original repo
 - 0.1.0 - Initial version
 
 

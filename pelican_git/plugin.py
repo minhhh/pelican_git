@@ -16,6 +16,7 @@ import collections
 import jinja2
 import requests
 g_jinja2 = jinja2.Environment(loader=jinja2.PackageLoader('pelican_git', 'templates'))
+from pelican_git import __url__
 
 logger = logging.getLogger(__name__)
 git_regex = re.compile(r'(\[git:repo\=([^,]+)(:?,file\=([^,]+))(:?,branch\=([^,]+))?(:?,hash\=([^,]+))?\])')
@@ -83,7 +84,7 @@ def setup_git(pelican):
 
 
 def get_body(res):
-    soup = BeautifulSoup(res)
+    soup = BeautifulSoup(res, "html.parser")
     body = soup.find('div', 'file')
     del body.contents[1]
     return body.prettify()
@@ -135,7 +136,7 @@ def replace_git_url(generator):
             context.update({
                 'code': body,
                 'footer': 'full',
-                'base': 'https://github.com/minhhh/pelican-git',
+                'base': __url__,
                 'filename': filename,
                 'url': git_url(**params)
             })

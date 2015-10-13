@@ -2,6 +2,7 @@
 *.pyc
 *.pid
 *.egg-info
+.python-version
 venv
 output
 cache
