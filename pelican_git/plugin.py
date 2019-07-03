@@ -21,10 +21,6 @@ from pelican_git import __url__
 logger = logging.getLogger(__name__)
 git_regex = re.compile(r'(\[git:repo\=([^,]+)(:?,file\=([^,]+))(:?,branch\=([^,]+))?(:?,hash\=([^,]+))?\])')
 
-gist_template = """<div class="gist">
-    {{code}}
-</div>"""
-
 GIT_TEMPLATE = 'git.jinja.html'
 
 
@@ -58,15 +54,15 @@ def set_cache(base, repo, filename, branch="master", hash=None, body=""):
 
 
 def fetch_git(repo, filename, branch="master", hash=None):
-    """Fetch a gist and return the contents as a string."""
+    """Fetch a git and return the contents as a string."""
     url = git_url(repo, filename, branch, hash)
     response = requests.get(url)
 
     if response.status_code != 200:
-        raise Exception('Got a bad status looking up gist.')
+        raise Exception('Got a bad status looking up git.')
     body = response.text
     if not body:
-        raise Exception('Unable to get the gist contents.')
+        raise Exception('Unable to get the git contents.')
 
     return body
 
@@ -85,13 +81,12 @@ def setup_git(pelican):
 
 def get_body(res):
     soup = BeautifulSoup(res, "html.parser")
-    body = soup.find('div', 'file')
-    del body.contents[1]
+    body = soup.find('div', id='readme')
     return body.prettify()
 
 
 def replace_git_url(generator):
-    """Replace gist tags in the article content."""
+    """Replace git tags in the article content."""
     template = g_jinja2.get_template(GIT_TEMPLATE)
 
     should_cache = generator.context.get('GIT_CACHE_ENABLED')

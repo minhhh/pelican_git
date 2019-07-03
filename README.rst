@@ -6,13 +6,13 @@ Pelican Git is a library that makes it easy to embed GitHub files in your Pelica
 Installation
 ------------
 
-To install pelican-git, simply:
+To install ``pelican-git``, simply use ``pip``:
 
 .. code-block:: bash
 
     $ pip install pelican-git
 
-Then add a bit of code to your blog configuration:
+Then add a bit of code to your ``pelican`` configuration file:
 
 .. code-block:: python
 
@@ -25,15 +25,15 @@ Then add a bit of code to your blog configuration:
 Usage
 -----
 
-In your articles, just add lines to your posts that look like:
+In your articles, add lines to your posts that look like:
 
 .. code-block:: html
 
     [git:repo=yourname/yourrepo,file=somefile,branch=master,hash=xxxxxxx]
 
-`branch` and `hash` are optional. If you don't specify `branch`, it will be `master`. If you specify `hash` it will overwrite the `branch` setting.
+``branch`` and ``hash`` are optional. If you don't specify ``branch``, it will be ``master``. If you specify ``hash`` it will overwrite the ``branch`` setting.
 
-The generated code will embed `css` and `html` content directly into a `div` and replace the original tag. This is faster and cleaner than using `javascript` to rewrite the page content like what gist_it_ does.
+The generated code will embed ``css`` and ``html`` content directly into a ``div`` and replace the original tag. This is faster and cleaner than using ``javascript`` to rewrite the page content like what gist_it_ does.
 
 Settings
 --------
@@ -59,8 +59,29 @@ Inspired by pelican_gist_
 Changelog
 ---------
 
-- 0.1.8 - Fix link to original repo
-- 0.1.0 - Initial version
+0.1.13
+~~~~~~
+Fixed
+^^^^^
+- Fixed error when fetching github HTML
+
+Changed
+^^^^^^^
+- Support Python 3.6
+
+
+0.1.8
+~~~~~~
+Fixed
+^^^^^^^
+- Fix link to original repo
+
+
+0.1.0
+~~~~~~
+dded
+^^^^^^^
+- Initial version
 
 
 License

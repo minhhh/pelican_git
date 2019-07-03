@@ -8,3 +8,4 @@ output
 cache
 build
 dist
+.pytest_cache

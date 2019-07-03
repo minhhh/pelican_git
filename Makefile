@@ -7,24 +7,24 @@ help: # show help
 	@grep "^[0-9a-zA-Z\-]*:.* #" $(MAKEFILE_LIST) | grep -v grep
 	@echo ""
 
-clean: # clean
-	rm -fr venv
-
 install: # install
-	virtualenv venv
-	. venv/bin/activate && pip install -r requirements.txt
+	pipenv install --dev
 
-test:
-	. venv/bin/activate && cd pelican_git && py.test --verbose --capture=sys
+test: # unit test
+	cd pelican_git && pipenv run py.test --verbose --capture=sys
+
+clean: # clean build
+	rm -frv dist build pelican_git.egg-info
 
 run: run # run
-	. venv/bin/activate && cd blog && make devserver && make regenerate && make stopserver
+	cd blog && pipenv run make devserver PORT=8080 && pipenv run make regenerate && pipenv run make stopserver
 
 stop: stop # stop
-	. venv/bin/activate && cd blog && make stopserver
+	cd blog && pipenv run make stopserver
 
 flake: # Run flake8 against the repo
-	. venv/bin/activate && flake8 pelican_git
+	pipenv run flake8 pelican_git
 
 publish: # Publish
-	. venv/bin/activate && python setup.py publish
+	pipenv run python setup.py sdist bdist_wheel
+	pipenv run twine upload dist/* --verbose

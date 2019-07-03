@@ -6,6 +6,8 @@ AUTHOR = u'Ha.Minh'
 SITENAME = u"Ha.Minh's Blog"
 SITEURL = 'http://minhhh.github.io'
 
+PATH = 'content'
+
 TIMEZONE = 'America/New_York'
 
 DEFAULT_LANG = u'en'
@@ -18,6 +20,8 @@ PLUGINS = [
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
+AUTHOR_FEED_ATOM = None
+AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS =  (('Pelican', 'http://getpelican.com/'),
@@ -42,7 +46,14 @@ DEFAULT_PAGINATION = 10
 DISPLAY_PAGES_ON_MENU = True
 DISPLAY_CATEGORIES_ON_MENU = True
 DEFAULT_CATEGORY = ('Programming')
-MD_EXTENSIONS = ['codehilite','extra']
+MARKDOWN = {
+    'extension_configs': {
+        'markdown.extensions.codehilite': {'css_class': 'highlight'},
+        'markdown.extensions.extra': {},
+        'markdown.extensions.meta': {},
+    },
+    'output_format': 'html5',
+}
 MARKUP = ('rst', 'md')
 ARTICLE_EXCLUDES = ('pages',)
 

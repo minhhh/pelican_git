@@ -67,7 +67,7 @@ def test_set_get_cache():
     repo = TEST_REPO
     filename = TEST_FILENAME
     path_base = '/tmp'
-    body = """Some gist body"""
+    body = """Some git body"""
 
     # Make sure there is no cache
     for f in (gitplugin.cache_filename(path_base, repo, filename), ):
@@ -96,7 +96,7 @@ def test_regex():
 
 
 def test_fetch_git():
-    """Ensure fetch_gist returns the response content as a string."""
+    """Ensure fetch_git returns the response content as a string."""
     repo = TEST_REPO
     filename = TEST_FILENAME
     CODE_BODY = "code"
@@ -200,12 +200,12 @@ def test_get_body():
 
 
 def test_fetch_git_sample():
-    """Ensure fetch_gist returns the response content as a string."""
+    """Ensure fetch_git returns the response content as a string."""
     repo = TEST_REPO
     filename = TEST_FILENAME
 
     response = gitplugin.fetch_git(repo, filename)
     soup = BeautifulSoup(response, "html.parser")
-    res = soup.find('div', 'file')
+    res = soup.find('div', id='readme')
     assert res is not None
 
